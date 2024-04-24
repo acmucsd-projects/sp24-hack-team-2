@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const { connectToDatabase } = require('./database_schema/database');
 
 const usersRouter = require('./routes/users');
 
@@ -15,10 +16,6 @@ app.use('/users', usersRouter);
 
 dotenv.config();
 
-mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true }).then(() => {
-  console.log('Connected to MongoDB database');
-});
+connectToDatabase();
 
 module.exports = app;
