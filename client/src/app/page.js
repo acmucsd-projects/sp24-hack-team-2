@@ -1,9 +1,17 @@
-import Image from 'next/image'
 import styles from './page.module.css'
+import Navbar from './navbar.js'
+import Home from './home.js'
 
-export default function Home() {
+export default function Page() {
   return (
     <main className={styles.main}>
+      <Navbar />
+      <Home />
+    </main>
+  )
+}
+
+/* OG NEXT.JS SITE DIV SETUP
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
@@ -90,6 +98,4 @@ export default function Home() {
           </p>
         </a>
       </div>
-    </main>
-  )
-}
+*/

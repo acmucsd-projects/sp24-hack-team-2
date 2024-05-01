@@ -1,3 +1,83 @@
+@font-face {
+  font-family: header-font;
+  src:url('/Altone Trial-Regular.ttf')
+}
+
+.navbar {
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.navbar a {
+  float: right;
+  color: #222222;
+  background-color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 12px;
+  text-decoration: none;
+  padding-left: 29px;
+  padding-right: 29px;
+  font-family: header-font;
+}
+
+
+@media (max-width:1920px) and (min-width:400px) {
+  .navbuttons {
+    padding-left: calc(7vw);
+  }
+}; 
+
+
+.logo:hover {
+  background-color: #FFC7C2;
+  color: #ffffff;
+}
+
+a.navbuttons {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+a.logo {
+  float: left;
+  padding-left: 18px;
+  background-color: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 0px;
+}
+
+/* div for the startpage hub area */
+.front {
+  height: 75vh;
+  width: 100%;
+  background-color: #FFC7C2;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  line-height: 15vh;
+}
+
+.front p {
+  padding-top: 30vh;
+  line-height: 1.25;
+  color: #ffffff;
+  vertical-align: middle;
+  font-family: header-font;
+}
+
+/* media adjust for font-size when the window is vertically shortened, FIX needed */
+@media (max-height:1920px) and (min-height:400px) {
+  .front p {
+    font-size: calc(1rem);
+    text-size-adjust: auto;
+  }
+}; 
+
+/*
 .main {
   display: flex;
   flex-direction: column;
@@ -107,7 +187,10 @@
 .logo {
   position: relative;
 }
+*/
+
 /* Enable hover only on non-touch devices */
+/*
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
@@ -124,8 +207,9 @@
     transform: none;
   }
 }
-
+*/
 /* Mobile */
+/*
 @media (max-width: 700px) {
   .content {
     padding: 4rem;
@@ -201,8 +285,9 @@
     z-index: 1;
   }
 }
-
+*/
 /* Tablet and Smaller Desktop */
+/*
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
@@ -227,3 +312,4 @@
     transform: rotate(0deg);
   }
 }
+*/
