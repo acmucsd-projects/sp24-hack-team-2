@@ -3,7 +3,7 @@
 import styles from './../page.module.css';
 import { motion as m } from 'framer-motion';
 
-export default function Itinerary() {
+export default function Start() {
     return (
       <m.div className={styles.itinerary}
         initial={{opacity: 0, height: 0}}
@@ -12,7 +12,7 @@ export default function Itinerary() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for itinerary
+            example for start
           </h1>
       </m.div>
     );
