@@ -12,7 +12,7 @@ export default function Itinerary() {
         exit={{ opacity: 1 }}
       >
           <h1>
-          example
+            example
           </h1>
       </m.div>
     );
