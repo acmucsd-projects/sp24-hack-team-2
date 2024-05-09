@@ -36,10 +36,17 @@
 }
 
 a.navbuttons {
+<<<<<<< Updated upstream
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 0px;
   padding-right: 0px;
+=======
+  padding-top: 15px;
+  padding-bottom: 0px;
+  padding-left: 11vw;
+  padding-right: 5vw;
+>>>>>>> Stashed changes
 }
 
 a.logo {
@@ -57,6 +64,33 @@ a.logo {
   background-color: #FFC7C2;
   text-align: center;
   margin: auto;
+<<<<<<< Updated upstream
+=======
+  position: relative;
+  line-height: 15vh;
+}
+
+.fronttext {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+}
+
+.frontbanner {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+}
+
+.itinerary {
+  height: 75vh;
+  width: 100%;
+  background-color: aquamarine;
+  text-align: center;
+  margin: auto;
+>>>>>>> Stashed changes
   position: absolute;
   line-height: 15vh;
 }

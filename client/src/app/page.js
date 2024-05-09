@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import styles from './page.module.css'
 import Navbar from './navbar.js'
 import Home from './home.js'
@@ -24,14 +25,46 @@ export default function Page() {
             rel="noopener noreferrer"
           >
             By{' '}
+=======
+'use client';
+
+import styles from './page.module.css';
+import Image from 'next/image';
+import Marquee from 'react-fast-marquee';
+import { motion as m } from "framer-motion";
+
+// NOTES ABOUT THE HOME PAGE:
+
+// @ <Marquee> :
+// marquee will need to be aligned behind following div.
+export default function Home() {
+    return(
+        <m.div className={styles.front}
+          initial={{opacity: 0, height: 0 }}
+          animate={{opacity: 1, height: "75vh" }}
+          transition={{ duration: 0.75, ease: 'easeOut' }}
+          exit={{ opacity: 1 }}
+        >
+          <div>
+            <Marquee>
+              future marquee image here... for background...
+            </Marquee>
+          </div>
+          <div>
+            <p>
+                Plan, log, and share<br></br>
+                your trip all in one place with
+            </p>
+>>>>>>> Stashed changes
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+                src="/geogurufulllogo.svg"
+                alt="Geoguru Full Logo"
+                className={styles.logoimg}
+                width={142}
+                height={51}
+                priority
             />
+<<<<<<< Updated upstream
           </a>
         </div>
       </div>
@@ -99,3 +132,9 @@ export default function Page() {
         </a>
       </div>
 */
+=======
+          </div>
+        </m.div>
+  );
+}
+>>>>>>> Stashed changes
