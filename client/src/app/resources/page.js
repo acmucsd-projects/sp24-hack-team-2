@@ -12,7 +12,7 @@ export default function Resources() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for resources
+            placeholder for resources
           </h1>
       </m.div>
     );

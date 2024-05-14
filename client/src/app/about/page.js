@@ -12,7 +12,7 @@ export default function About() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for about
+          placeholder for about
           </h1>
       </m.div>
     );

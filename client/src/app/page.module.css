@@ -3,6 +3,16 @@
   src:url('/Altone Trial-Regular.ttf')
 }
 
+@font-face {
+  font-family: bold-font;
+  src:url('/Inter-SemiBold.ttf')
+}
+
+@font-face {
+  font-family: thin-font;
+  src:url('/Inter-ExtraLight.ttf')
+}
+
 .navbar {
   overflow: hidden;
   background: #ffffff;
@@ -50,23 +60,134 @@ a.logo {
   padding-bottom: 0px;
 }
 
+.frontcontainer {
+  height: 75vh;
+  width: 100%;
+}
+
 /* div for the startpage hub area */
 .front {
   height: 75vh;
   width: 100%;
   background-color: #FFC7C2;
   text-align: center;
-  margin: auto;
-  position: absolute;
+  position: relative;
   line-height: 15vh;
 }
 
+.bannercontainer {
+  height: 75vh;
+}
+
+.banner {
+  background-color: #FFC7C2;
+  z-index: 0;
+  height: 75vh;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+}
+
+.landingtext {
+  width: 100%;
+  padding-bottom: 100px;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+}
+
+.loginmodal, .logincontent {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 2;
+}
+
+.loginshadow {
+  background: #31313170;
+  width: 100%;
+  height: 100%;
+}
+
+.logincontent {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  width: 30vw;
+  height: 65vh;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 255, 255);
+  border-radius: 25px;
+  line-height: 4vh;
+  padding-top: 20px;
+}
+
+.logincontent h1 {
+  font-size: 20px;
+  font-family: bold-font;
+  transform: scale(1.07, 1.05);
+}
+
+.logincontent h2 {
+  font-size: 14px;
+  font-family: thin-font;
+  color: rgb(123, 114, 114);
+  transform: scale(1.07, 1);
+}
+
+.logininfo h3 {
+  font-size: 18px;
+  font-family: thin-font;
+  color: black;
+  transform: scale(1.07, 1);
+  padding-left: 14px;
+}
+
+.logininfo input {
+  width: 26vw;
+  height: 6vh;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.logininfo button {
+  background-color: black;
+  color: white;
+  font-family: bold-font;
+  font-size: 20px;
+  padding-left: 12px;
+  text-align: center;
+  width: 26vw;
+  height: 6vh;
+  border-radius: 10px;
+
+}
+
+.logininfo {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  padding-left: 30px;
+
+  line-height: 5vh;
+}
+
 .front p {
-  padding-top: 30vh;
+  padding-top: 22vh;
   line-height: 1.25;
   color: #ffffff;
   vertical-align: middle;
   font-family: header-font;
+}
+
+.startbutton button {
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .itinerary {

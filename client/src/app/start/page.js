@@ -12,7 +12,7 @@ export default function Start() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for start
+          placeholder for start
           </h1>
       </m.div>
     );

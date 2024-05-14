@@ -12,7 +12,7 @@ export default function Login() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for login
+          placeholder for login
           </h1>
       </m.div>
     );

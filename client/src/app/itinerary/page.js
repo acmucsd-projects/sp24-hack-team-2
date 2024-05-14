@@ -12,7 +12,7 @@ export default function Itinerary() {
         exit={{ opacity: 1 }}
       >
           <h1>
-            example for itinerary
+          placeholder for itinerary
           </h1>
       </m.div>
     );
