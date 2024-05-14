@@ -17,9 +17,13 @@ async function getAttractionDetails(xid) {
     }
 }
 
-async function getAttractions(latitude, longitude, radius, filters = []) {
+async function getAttractions(city, country, radius, filters = []) {
     try {
-        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d'; // Replace with your OpenTripMap API key
+        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d';
+
+        const coords = await getCoordinates(city, country);
+        const latitude = coords.lat;
+        const longitude = coords.lon;
 
         const attractionsUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lat=${latitude}&lon=${longitude}&limit=10&apikey=${apiKey}`;
 
@@ -50,16 +54,45 @@ async function getAttractions(latitude, longitude, radius, filters = []) {
     }
 }
 
-// Example usage:
-const latitude = 32.8328; // Latitude of La Jolla
-const longitude = -117.2713; // Longitude of La Jolla
+async function getLocationData(name, country='') {
+    try {
+        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d';
+
+        const coordinatesUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${name}&country=${country}&apikey=${apiKey}`;
+
+        const coordinateResponse = await axios.get(coordinatesUrl);
+
+        if (coordinateResponse.status !== 200) {
+            throw new Error('Failed to fetch coordinates. Server responded with status: ' + coordinateResponse.status);
+        }
+
+        return coordinateResponse.data;
+    } catch (error) {
+        throw new Error('Error fetching coordinates: ' + error.message);
+    }
+}
+
+async function getCoordinates(city, country) {
+    try {
+        const coords = await getLocationData(city, country);    // don't put spaces in cities with more than one word
+        console.log(coords);
+        return coords;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const city = 'LaJolla';
+const country = 'us';
 const radius = 10000; // Specify the radius in meters
 const filters = ['restaurants', 'amusement parks', 'zoos']; // Specify filters if needed
 
-getAttractions(latitude, longitude, radius, filters)
+getAttractions(city, country, radius, filters)
     .then(attractions => {
         console.log('Attractions:', attractions);
     })
     .catch(error => {
         console.error('Error fetching attractions:', error.message);
     });
+
+module.exports = {getCoordinates, getAttractions};
