@@ -42,7 +42,7 @@ async function getEvents(timeInterval, budgetPerPerson, category, latitude, long
     const options = {
         headers: {
             accept: 'application/json',
-            Authorization: 'Bearer s2p4d7hWTC-63jPqpMT06EcgvXPC9pRAA05exnbPaGAy-NsKj9vpzeBwnTKDNhriij6I7lXW_7XtZO36al77Xhxf4hKbXYlUID-tnN33A1kCH0PODlYAiUmrVhs7ZnYx'
+            Authorization: 'Bearer ' + YelpAPI
         }
     };
 
@@ -70,23 +70,23 @@ async function getEvents(timeInterval, budgetPerPerson, category, latitude, long
     }
 }
 
-// Sample input data
-const timeInterval = 'Evening'; // Example time interval
-const budgetPerPerson = 2000; // Example budget per person
-const category = 'food-and-drink'; // Example category
-const latitude = 32.8542205; // Example latitude
-const longitude = -117.2566302; // Example longitude
-const radius = 5000; // Radius in meters (adjust as needed)
-const startDate = '2024-01-01'; // Start date of the range
-const endDate = '2024-12-31'; // End date of the range
+// // Sample input data
+// const timeInterval = 'Evening'; // Example time interval
+// const budgetPerPerson = 2000; // Example budget per person
+// const category = 'food-and-drink'; // Example category
+// const latitude = 32.8542205; // Example latitude
+// const longitude = -117.2566302; // Example longitude
+// const radius = 5000; // Radius in meters (adjust as needed)
+// const startDate = '2024-01-01'; // Start date of the range
+// const endDate = '2024-12-31'; // End date of the range
 
-// Call the function
-getEvents(timeInterval, budgetPerPerson, category, latitude, longitude, radius, startDate, endDate)
-    .then(filteredEvents => {
-        console.log('Filtered events:', filteredEvents);
-    })
-    .catch(error => {
-        console.error('Error:', error.message);
-    });
+// // Call the function
+// getEvents(timeInterval, budgetPerPerson, category, latitude, longitude, radius, startDate, endDate)
+//     .then(filteredEvents => {
+//         console.log('Filtered events:', filteredEvents);
+//     })
+//     .catch(error => {
+//         console.error('Error:', error.message);
+//     });
 
 module.exports = { getEvents };

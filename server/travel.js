@@ -76,17 +76,17 @@ async function getLocationData(city, country='') {
     }
 }
 
-const city = 'LaJolla';
-const country = 'us';
-const radius = 10000; // Specify the radius in meters
-const filters = ['restaurants', 'amusement parks', 'zoos']; // Specify filters if needed
+// const city = 'LaJolla';
+// const country = 'us';
+// const radius = 10000; // Specify the radius in meters
+// const filters = ['restaurants', 'amusement parks', 'zoos']; // Specify filters if needed
 
-getAttractions(city, country, radius, filters)
-    .then(attractions => {
-        console.log('Attractions:', attractions);
-    })
-    .catch(error => {
-        console.error('Error fetching attractions:', error.message);
-    });
+// getAttractions(city, country, radius, filters)
+//     .then(attractions => {
+//         console.log('Attractions:', attractions);
+//     })
+//     .catch(error => {
+//         console.error('Error fetching attractions:', error.message);
+//     });
 
 module.exports = {getLocationData, getAttractions};
