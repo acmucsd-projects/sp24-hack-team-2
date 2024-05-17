@@ -1,8 +1,12 @@
 const axios = require('axios');
+const dotenv = require('dotenv');
+
+dotenv.config();
+OpenTripMapAPI = process.env.OPENTRIPMAP_API_KEY;
 
 async function getAttractionDetails(xid) {
     try {
-        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d'; // Replace with your OpenTripMap API key
+        const apiKey = OpenTripMapAPI; // Replace with your OpenTripMap API key
         const detailsUrl = `https://api.opentripmap.com/0.1/en/places/xid/${xid}?apikey=${apiKey}`;
 
         const response = await axios.get(detailsUrl);
@@ -19,9 +23,9 @@ async function getAttractionDetails(xid) {
 
 async function getAttractions(city, country, radius, filters = []) {
     try {
-        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d';
+        const apiKey = OpenTripMapAPI;
 
-        const coords = await getCoordinates(city, country);
+        const coords = await getLocationData(city, country);
         const latitude = coords.lat;
         const longitude = coords.lon;
 
@@ -54,11 +58,11 @@ async function getAttractions(city, country, radius, filters = []) {
     }
 }
 
-async function getLocationData(name, country='') {
+async function getLocationData(city, country='') {
     try {
-        const apiKey = '5ae2e3f221c38a28845f05b62bb98161614be6591b54356a6b90cc8d';
+        const apiKey = OpenTripMapAPI;
 
-        const coordinatesUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${name}&country=${country}&apikey=${apiKey}`;
+        const coordinatesUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&country=${country}&apikey=${apiKey}`;
 
         const coordinateResponse = await axios.get(coordinatesUrl);
 
@@ -69,16 +73,6 @@ async function getLocationData(name, country='') {
         return coordinateResponse.data;
     } catch (error) {
         throw new Error('Error fetching coordinates: ' + error.message);
-    }
-}
-
-async function getCoordinates(city, country) {
-    try {
-        const coords = await getLocationData(city, country);    // don't put spaces in cities with more than one word
-        console.log(coords);
-        return coords;
-    } catch (error) {
-        console.error(error);
     }
 }
 
@@ -95,4 +89,4 @@ getAttractions(city, country, radius, filters)
         console.error('Error fetching attractions:', error.message);
     });
 
-module.exports = {getCoordinates, getAttractions};
+module.exports = {getLocationData, getAttractions};
