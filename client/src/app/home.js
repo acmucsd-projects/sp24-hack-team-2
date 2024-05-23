@@ -9,12 +9,22 @@ import { motion as m } from "framer-motion";
 
 export default function Home() {
     
+    // the following utilizes React's useState to create a set & get variable
+    // for whether or not the user has opened the login popup.
     const [useLoginModal, setLoginModal] = useState(false);
-
+    // this function will toggle that value
     const toggleLoginModal = () => {
       setLoginModal(!useLoginModal)
     }
   
+    // the following is the HTML returned for the frontpage. everything is nested
+    // inside of an <m.div>, which is an animated version of a div that uses
+    // framer-motion properties to change how its animation looks when the
+    // page is first loaded.
+
+    // the bannercontainer class also contains a Marquee component from
+    // react-fast-marquee, which is what holds the banner image that is
+    // sliding infinitely in the background on the homepage.
     return(
         <m.div className={styles.front}
           initial={{opacity: 0, height: "0%" }}
@@ -68,6 +78,13 @@ export default function Home() {
             </h1>
           </div>
 
+
+          {/* here is where the loginModal from /COMPONENTS/login.js will 
+          popup if useLoginModal is set to true. framer-motion will slide the
+          modal into view, and then use the LoginInfo component for the user
+          to set and enter login info.*/}
+          {/* since this section relies on useLoginModal being true, it
+          will otherwise not be returned on the page if false.*/}
           {useLoginModal && (
             <div className={styles.loginmodal}>
                 <m.div onClick={toggleLoginModal} className={styles.loginshadow}

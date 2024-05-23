@@ -3,6 +3,8 @@
 import styles from './../page.module.css';
 import { motion as m } from 'framer-motion';
 
+// This will be our page for the Itinerary page. Change it as you'd like!
+
 export default function Itinerary() {
     return (
       <m.div className={styles.itinerary}

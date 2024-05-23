@@ -1,3 +1,7 @@
+# NOTE FOR FRONTEND❗
+
+All HTML and React components for the website are returned at `layout.js`  in `src\app`. To start reading up on how it works, check that file.
+
 # 💻 MERN stack template
 
 Template for building projects with the MERN (MongoDB, Express, React, Node.js) stack.
