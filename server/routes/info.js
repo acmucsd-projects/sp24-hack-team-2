@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { getLocationData, getAttractions } = require('../travel');
 const { getEvents } = require('../events');
-const { createJournalEntry } = require('../controllers/entryController');
-const { createTripItinerary } = require('../controllers/tripController');
-const { getUserWithTrips } = require('../controllers/userController');
 
-// Existing routes
+// Route to get attractions
 router.get('/attractions', async (req, res) => {
     try {
         const { city, country, radius, filters } = req.query;
@@ -17,9 +14,10 @@ router.get('/attractions', async (req, res) => {
     }
 });
 
+// Route to get events
 router.get('/events', async (req, res) => {
     try {
-        const {timeInterval, budgetPerPerson, category, city, country, radius, startDate, endDate} = req.query;
+        const { timeInterval, budgetPerPerson, category, city, country, radius, startDate, endDate } = req.query;
         const coords = await getLocationData(city, country);
         const latitude = coords.lat;
         const longitude = coords.lon;
@@ -30,11 +28,5 @@ router.get('/events', async (req, res) => {
         res.status(500).json({ error: err?.message });
     }
 });
-
-router.post('/journal-entry', createJournalEntry);
-router.post('/trip-itinerary', createTripItinerary);
-
-// New route to fetch user data including trips
-router.get('/user/:id', getUserWithTrips);
 
 module.exports = router;

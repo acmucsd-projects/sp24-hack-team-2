@@ -9,7 +9,11 @@ const TripSchema = new Schema({
     budget: Number,
     destination: String,
     itinerary: [{
-        type: Schema.Types.ObjectId
+        title: String,
+        location: String,
+        cost: Number,
+        description: String,
+        date: Date
     }]
 });
 

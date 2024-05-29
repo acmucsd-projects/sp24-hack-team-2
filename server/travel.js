@@ -2,11 +2,15 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 
 dotenv.config();
-OpenTripMapAPI = process.env.OPENTRIPMAP_API_KEY;
+const OpenTripMapAPI = process.env.OPENTRIPMAP_API_KEY;
 
-async function getAttractionDetails(xid) {
+async function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getAttractionDetails(xid, retries = 3) {
     try {
-        const apiKey = OpenTripMapAPI; // Replace with your OpenTripMap API key
+        const apiKey = OpenTripMapAPI;
         const detailsUrl = `https://api.opentripmap.com/0.1/en/places/xid/${xid}?apikey=${apiKey}`;
 
         const response = await axios.get(detailsUrl);
@@ -17,7 +21,29 @@ async function getAttractionDetails(xid) {
 
         return response.data;
     } catch (error) {
-        throw new Error('Error fetching attraction details: ' + error.message);
+        if (retries > 0 && error.response && error.response.status === 429) {
+            await delay(1000); // wait for 1 second before retrying
+            return getAttractionDetails(xid, retries - 1);
+        } else {
+            throw new Error('Error fetching attraction details: ' + error.message);
+        }
+    }
+}
+
+async function getLocationData(city, country = '') {
+    try {
+        const apiKey = OpenTripMapAPI;
+        const coordinatesUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&country=${country}&apikey=${apiKey}`;
+
+        const coordinateResponse = await axios.get(coordinatesUrl);
+
+        if (coordinateResponse.status !== 200) {
+            throw new Error('Failed to fetch coordinates. Server responded with status: ' + coordinateResponse.status);
+        }
+
+        return coordinateResponse.data;
+    } catch (error) {
+        throw new Error('Error fetching coordinates: ' + error.message);
     }
 }
 
@@ -29,7 +55,12 @@ async function getAttractions(city, country, radius, filters = []) {
         const latitude = coords.lat;
         const longitude = coords.lon;
 
-        const attractionsUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lat=${latitude}&lon=${longitude}&limit=10&apikey=${apiKey}`;
+        let kindsFilter = '';
+        if (filters.length > 0) {
+            kindsFilter = `&kinds=${filters.join(',')}`;
+        }
+
+        const attractionsUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lat=${latitude}&lon=${longitude}&limit=10&apikey=${apiKey}${kindsFilter}`;
 
         const attractionsResponse = await axios.get(attractionsUrl);
 
@@ -38,7 +69,7 @@ async function getAttractions(city, country, radius, filters = []) {
         }
 
         const attractions = await Promise.all(attractionsResponse.data.features.map(async feature => {
-            const { xid, name, kinds} = feature.properties;
+            const { xid, name, kinds } = feature.properties;
             const attractionDetails = await getAttractionDetails(xid);
             return {
                 name,
@@ -55,24 +86,6 @@ async function getAttractions(city, country, radius, filters = []) {
         return attractions;
     } catch (error) {
         throw new Error('Error fetching attractions: ' + error.message);
-    }
-}
-
-async function getLocationData(city, country='') {
-    try {
-        const apiKey = OpenTripMapAPI;
-
-        const coordinatesUrl = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&country=${country}&apikey=${apiKey}`;
-
-        const coordinateResponse = await axios.get(coordinatesUrl);
-
-        if (coordinateResponse.status !== 200) {
-            throw new Error('Failed to fetch coordinates. Server responded with status: ' + coordinateResponse.status);
-        }
-
-        return coordinateResponse.data;
-    } catch (error) {
-        throw new Error('Error fetching coordinates: ' + error.message);
     }
 }
 
