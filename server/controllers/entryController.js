@@ -33,4 +33,48 @@ const createJournalEntry = async (req, res) => {
     }
 };
 
-module.exports = { createJournalEntry };
+const updateJournalEntry = async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    try {
+        // Validate input
+        if (!title || !content) {
+            return res.status(400).json({ error: 'Title and content are required' });
+        }
+
+        // Update the journal entry
+        const updatedEntry = await Entry.findByIdAndUpdate(
+            id,
+            { title, content },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedEntry) {
+            return res.status(404).json({ message: "Journal entry not found" });
+        }
+
+        res.status(200).json(updatedEntry);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+const deleteJournalEntry = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedEntry = await Entry.findByIdAndDelete(id);
+
+        if (!deletedEntry) {
+            return res.status(404).send({ message: "Journal entry not found" });
+        }
+
+        res.status(200).json({ message: "Journal entry deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = { createJournalEntry, updateJournalEntry, deleteJournalEntry };

@@ -47,7 +47,7 @@ async function getLocationData(city, country = '') {
     }
 }
 
-async function getAttractions(city, country, radius, filters = []) {
+async function getAttractions(city, country, radius, filters = [], sortBy = 'name', sortOrder = 'asc', maxBudget) {
     try {
         const apiKey = OpenTripMapAPI;
 
@@ -60,46 +60,60 @@ async function getAttractions(city, country, radius, filters = []) {
             kindsFilter = `&kinds=${filters.join(',')}`;
         }
 
-        const attractionsUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lat=${latitude}&lon=${longitude}&limit=10&apikey=${apiKey}${kindsFilter}`;
+        const attractionsUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lat=${latitude}&lon=${longitude}&limit=100&apikey=${apiKey}${kindsFilter}`;
 
+        console.log(`Requesting attractions from: ${attractionsUrl}`);
         const attractionsResponse = await axios.get(attractionsUrl);
 
         if (attractionsResponse.status !== 200) {
             throw new Error('Failed to fetch attractions. Server responded with status: ' + attractionsResponse.status);
         }
 
-        const attractions = await Promise.all(attractionsResponse.data.features.map(async feature => {
+        let attractions = await Promise.all(attractionsResponse.data.features.map(async feature => {
             const { xid, name, kinds } = feature.properties;
-            const attractionDetails = await getAttractionDetails(xid);
-            return {
-                name,
-                address: attractionDetails?.address || 'Address not available',
-                preview: attractionDetails?.image || 'Preview image not available',
-                description: attractionDetails?.wikipedia_extracts?.text || 'Description not available',
-                population: attractionDetails?.population || 'Population not available',
-                tags: kinds || 'Tags not available',
-                latitude: attractionDetails?.point?.lat || 'Latitude not available',
-                longitude: attractionDetails?.point?.lon || 'Longitude not available',
-            };
+            try {
+                const attractionDetails = await getAttractionDetails(xid);
+                return {
+                    name,
+                    address: attractionDetails?.address || 'Address not available',
+                    preview: attractionDetails?.image || 'Preview image not available',
+                    description: attractionDetails?.wikipedia_extracts?.text || 'Description not available',
+                    population: attractionDetails?.population || 'Population not available',
+                    tags: kinds || 'Tags not available',
+                    latitude: attractionDetails?.point?.lat || 'Latitude not available',
+                    longitude: attractionDetails?.point?.lon || 'Longitude not available',
+                    cost: Math.floor(Math.random() * 100) // Dummy cost value, replace with actual cost if available
+                };
+            } catch (err) {
+                console.error(`Error fetching details for ${xid}: ${err.message}`);
+                return null;
+            }
         }));
 
+        attractions = attractions.filter(attraction => attraction !== null);
+
+        // Apply budget filter
+        if (maxBudget) {
+            attractions = attractions.filter(attraction => attraction.cost <= maxBudget);
+        }
+
+        // Apply sorting
+        if (sortBy && sortOrder) {
+            attractions = attractions.sort((a, b) => {
+                if (sortOrder === 'asc') {
+                    return a[sortBy] > b[sortBy] ? 1 : -1;
+                } else {
+                    return a[sortBy] < b[sortBy] ? 1 : -1;
+                }
+            });
+        }
+
+        console.log(`Filtered and sorted attractions: ${JSON.stringify(attractions, null, 2)}`);
         return attractions;
     } catch (error) {
+        console.error('Error fetching attractions: ', error.message);
         throw new Error('Error fetching attractions: ' + error.message);
     }
 }
 
-// const city = 'LaJolla';
-// const country = 'us';
-// const radius = 10000; // Specify the radius in meters
-// const filters = ['restaurants', 'amusement parks', 'zoos']; // Specify filters if needed
-
-// getAttractions(city, country, radius, filters)
-//     .then(attractions => {
-//         console.log('Attractions:', attractions);
-//     })
-//     .catch(error => {
-//         console.error('Error fetching attractions:', error.message);
-//     });
-
-module.exports = {getLocationData, getAttractions};
+module.exports = { getLocationData, getAttractions };
