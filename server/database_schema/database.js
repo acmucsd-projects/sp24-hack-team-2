@@ -5,10 +5,7 @@ const Entry = require('./entrySchema');
 
 const connectToDatabase = async () => {
     try {
-        await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(process.env.DB_URL);
         console.log('Connected to MongoDB database');
     } catch (error) {
         console.error('Error connecting to MongoDB database:', error);
