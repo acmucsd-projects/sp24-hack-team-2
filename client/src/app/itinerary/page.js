@@ -17,6 +17,8 @@ class Event {
 
 export default function Itinerary() {
 
+    /*
+
     // CREATE A NEW Event OBJECT FOR EACH RETRIEVED FROM USER'S TRIP
     // PLACE ALL OF THESE EVENTS IN THIS ARRAY:
     var events = [];
@@ -28,12 +30,14 @@ export default function Itinerary() {
     var dates = [];
 
     dates.push(first_date);
-    while (first_date != final_date) {
-      first_date().setDate(first_date().getDate() + 1);
-      dates.push(first_date);
-    }
-    if (first_date != final_date) {
-      dates.push(final_date);
+    if ((first_date != null) && (final_date != null)) {
+      while (first_date != final_date) {
+        first_date.setDate(first_date.getDate() + 1);
+        dates.push(first_date);
+      }
+      if (first_date != final_date) {
+        dates.push(final_date);
+      }
     }
 
     [useSelectedDate, setSelectedDate] = useState(new Date());
@@ -46,11 +50,15 @@ export default function Itinerary() {
       selectedEvents = [];
 
       for (var i = 0 ; i < events.length ; i++) {
-        if (events[i].date == date) {
+        if (events[i].date == useSelectedDate) {
           selectedEvents.push(events[i]);
         }
       }
     } 
+
+    function pushNewEvent(event) {
+      selectedEvents.push(event);
+    }
   
     return (
       <m.div className={styles.itinerary}
@@ -107,6 +115,7 @@ export default function Itinerary() {
               </div>
             ))}
 
+
             <div className={styles.addEvent}>
               <div className={styles.addPlusButton}>
                 +
@@ -119,4 +128,6 @@ export default function Itinerary() {
         </div>
       </m.div>
     );
+
+    */
 }
