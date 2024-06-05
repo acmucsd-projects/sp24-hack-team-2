@@ -18,13 +18,13 @@ export default function Recovery() {
     const submitrequest = () => {
       if ((submitbutton != null)) {
         animate(submitbutton, { backgroundColor: "#86EF98" }, {duration: 0.5})
-        animate(submissionmsg, { opacity: 1, y: "225px" }, {duration: 0.5} )
+        animate(submissionmsg, { opacity: 1, y: "675%" }, {duration: 0.5} )
         setTimeout(fademessage, 7500);
       }
     }
 
     function fademessage() {
-      animate(submissionmsg, { opacity: 0, y: "250px" }, {duration: 2.5} )
+      animate(submissionmsg, { opacity: 0, y: "700%" }, {duration: 2.5} )
     }
 
     return (
@@ -36,8 +36,8 @@ export default function Recovery() {
           exit={{ opacity: 1 }}
         >
           <m.div className={styles.rrContainer}
-            initial={{y: 250}}
-            animate={{y: 200}}
+            initial={{y: "95%"}}
+            animate={{y: "135%"}}
             transition={{ duration: 0.75, ease: 'easeOut' }}
             exit={{ opacity: 1 }}          
           >
@@ -78,7 +78,7 @@ export default function Recovery() {
           </m.div>
         </m.div>
         <m.div id="submsg" className={styles.emailsubmission}
-          initial={{opacity: 0, y: "250px"}}
+          initial={{opacity: 0, y: "700%"}}
         >
           <div>
           <h3>
