@@ -7,9 +7,9 @@ const { connectToDatabase } = require('../database_schema/database');
 const getUser = async (req, res) => {
     try {
         const userId = req.params.id;
-
+        console.log(userId);
         // Find the user by User ID and populates Trips
-        const user = await User.findById(userId).populate('trips');
+        const user = await User.findOne({ firebaseUID: userId }).populate('trips');
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });

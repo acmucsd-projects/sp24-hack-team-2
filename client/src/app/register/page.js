@@ -24,11 +24,26 @@ export default function Register() {
         setPass(event.target.value)
     }
 
-    const clickLogin = () => {
-      console.log("Email: ", useEmail, " Password: ", usePass);
-      
+    const clickLogin = async () => {
       if ((useEmail.length > 0) && (usePass.length > 0)) {
-        routeToStart();
+        try {
+          console.log("Email: ", useEmail, " Password: ", usePass);
+          const response = await fetch ('http://localhost:4000/user/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: useEmail, password: usePass, username: useEmail }),
+          });
+          if (response.ok) {
+            routeToStart();
+          } else {
+              const data = await response.json();
+              console.error("Registration error: ", data.message);
+          }
+        } catch (err) {
+          console.error("Couldn't login: ", err);
+        }
       }
     }
 
