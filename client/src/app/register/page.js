@@ -34,15 +34,15 @@ export default function Register() {
           },
           body: JSON.stringify({ email: useEmail, password: usePass, username }),
         });
-
-        if (response.ok) {
-          routeToStart();
-        } else {
-          const error = await response.text();
-          console.error('Error:', error);
+          if (response.ok) {
+            routeToStart();
+          } else {
+              const data = await response.json();
+              console.error("Registration error: ", data.message);
+          }
+        } catch (err) {
+          console.error("Couldn't login: ", err);
         }
-      } catch (error) {
-        console.error('Error:', error);
       }
     }
   };
