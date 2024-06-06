@@ -26,6 +26,7 @@ export default function LoginInfo() {
 
     // same is done here with Paswords
     const [usePass, setPass] = useState("");
+    
     const changePass = event => {
         setPass(event.target.value)
     }
